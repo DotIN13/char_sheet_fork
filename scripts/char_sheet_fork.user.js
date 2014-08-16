@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 // [WoD]人物卡 fork
-// Version 1.33, 2013-11-11
+// Version 1.34, 2013-12-20
 //-----------------------------------------------------------------------------
 
 // ==UserScript==
@@ -23,13 +23,14 @@ String.method( 'txt', function () {
 	return this.replace( /<.*?>|\s+|\s+|\n|\r|!/g, '' );
 });
 
-// 1 item name
-// 2 = 3+4+5
-// 3 group mark
-// 4 empty space
-// 5 uses
+// 1 need reset point to unequip
+// 2 item name
+// 3 = 4+5+6
+// 4 group mark
+// 5 empty space
+// 6 uses
 //var rObj = new RegExp( '^(.+?)(!)?([ ])?([\(][0-9]+[\/][0-9]+[\)])?$' );
-var rObj = /^(.+?)((!)?([ ])?(\([0-9]+\/[0-9]+\))?)$/;
+var rObj = /^(!! )?(.+?)((!)?([ ])?(\([0-9]+\/[0-9]+\))?)$/;
 
 var pattern_graft = /^\/wod\/css\/icons\/WOD\/gems\/gem_(.)\.png$/ ;
 
@@ -39,8 +40,9 @@ String.method( 'item_txt', function () {
 	var item = this.replace( /<.*?>|\n|\r/g, '' );
 
 	var item_list = rObj.exec(item);
-	result.push(item_list[1]);
-	result.push( (item_list[2])?item_list[2]:'' );
+	result.push( (item_list[1])?item_list[1]:'' );
+	result.push(item_list[2]);
+	result.push( (item_list[3])?item_list[3]:'' );
 	return result
 	
 });
@@ -393,7 +395,7 @@ var WoDTool = {
 						};
 					};
 					if ( item_part[0]=='select' ){
-						output = output + "[item:" + item_part[1][0] + "]" + item_part[1][1];
+						output = output + item_part[1][0] + "[item:" + item_part[1][1] + "]" + item_part[1][2];
 					};
 				};
 				output = output + "[/td][/tr]<br />";

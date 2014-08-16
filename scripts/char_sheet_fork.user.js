@@ -1,11 +1,11 @@
 //-----------------------------------------------------------------------------
-// [WoD]人物卡
-// Version 1.32, 2013-07-22
+// [WoD]人物卡 fork
+// Version 1.33, 2013-11-11
 //-----------------------------------------------------------------------------
 
 // ==UserScript==
-// @name           [WoD]人物卡 
-// @namespace      WOD_Tools_by_hildolfr@aino
+// @name           [WoD]人物卡 (fork)
+// @namespace      WOD_Tools_(fork) by_hildolfr@aino
 // @description    用来在英雄-》属性页面添加一个按钮，点击后生成文本格式的可复制的人物卡，便于群众交流
 // @include        http*://*.world-of-dungeons.org/wod/spiel/hero/attributes.php*
 // @license        MIT License
@@ -30,6 +30,8 @@ String.method( 'txt', function () {
 // 5 uses
 //var rObj = new RegExp( '^(.+?)(!)?([ ])?([\(][0-9]+[\/][0-9]+[\)])?$' );
 var rObj = /^(.+?)((!)?([ ])?(\([0-9]+\/[0-9]+\))?)$/;
+
+var pattern_graft = /^\/wod\/css\/icons\/WOD\/gems\/gem_(.)\.png$/ ;
 
 // used to separate item name, group mark, and number of uses
 String.method( 'item_txt', function () {
@@ -319,6 +321,7 @@ var WoDTool = {
 					}, item_part );
 				};
 				if (item_part.tagName.toLowerCase() == 'img'){
+					// 有可裝備物品的空位
 					if ( ! /zustand_leer.gif$/.test(item_part.getAttribute('src'))){
 						item[1].push(['img',item_part.getAttribute('src')]);
 					};
@@ -383,7 +386,11 @@ var WoDTool = {
 				var t = -1;
 				while ( (item_part = item[1][++t]) ) {
 					if ( item_part[0]=='img' ){
-						output = output + "[img]" + item_part[1] + "[/img]";
+						//output = output + "[img]" + item_part[1] + "[/img]";
+						var graft_result = pattern_graft.exec(item_part[1]);
+						if (graft_result != null ){
+							output = output + ":g" + graft_result[1] + ":"
+						};
 					};
 					if ( item_part[0]=='select' ){
 						output = output + "[item:" + item_part[1][0] + "]" + item_part[1][1];

@@ -1,13 +1,11 @@
-//-----------------------------------------------------------------------------
-// [WoD]人物卡 fork
-// Version 1.35, 2014-08-22
-//-----------------------------------------------------------------------------
-
 // ==UserScript==
 // @name           [WoD]人物卡 (fork)
 // @namespace      WOD_Tools_(fork) by_hildolfr@aino
 // @description    用来在英雄-》属性页面添加一个按钮，点击后生成文本格式的可复制的人物卡，便于群众交流
 // @include        http*://*.world-of-dungeons.org/wod/spiel/hero/attributes.php*
+// @updateURL      https://bitbucket.org/wod/char_sheet_fork/raw/default/scripts/char_sheet_fork.user.js
+// @downloadURL    https://bitbucket.org/wod/char_sheet_fork/raw/default/scripts/char_sheet_fork.user.js
+// @version        1.36
 // @license        MIT License
 // ==/UserScript==
 
